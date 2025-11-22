@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package order;
+
+import "google/protobuf/empty.proto";
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (OrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (OrderResponse);
+  rpc ListOrders(google.protobuf.Empty) returns (OrderListResponse);
+}
+
+message CreateOrderRequest {
+  string productId = 1;
+  int32 quantity = 2;
+}
+
+message GetOrderRequest {
+  string id = 1;
+}
+
+message Order {
+  string id = 1;
+  string productId = 2;
+  int32 quantity = 3;
+  double totalPrice = 4;
+  string createdAt = 5;
+}
+
+message OrderResponse {
+  bool success = 1;
+  string message = 2;
+  Order data = 3;
+}
+
+message OrderListResponse {
+  bool success = 1;
+  string message = 2;
+  repeated Order data = 3;
+}
